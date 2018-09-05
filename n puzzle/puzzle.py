@@ -106,11 +106,14 @@ class Grid:
                 self.grid[self.blank[0]][self.blank[1]], self.grid[self.blank[0]][self.blank[1] +1 ] = self.grid[self.blank[0]][self.blank[1] +1 ], self.grid[self.blank[0]][self.blank[1]] 
                 self.blank[1] += 1
 
+    
+    def goal_test(self):
+        pass
 
 
 if __name__ == "__main__":
     
-    g = Grid(2)
+    g = Grid(4)
     g.print_grid()
 
     g.move(Grid.UP)
