@@ -138,10 +138,10 @@ class Grid:
     '''
     def _move_non_affecting(self, direction):
         
-        temp_state = copy.copy(self.grid)
+        temp_state = copy.deepcopy(self.grid)
         self.move(direction)
-        moved_state = copy.copy(self.grid)
-        self.grid = copy.copy(temp_state)
+        moved_state = copy.deepcopy(self.grid)
+        self.grid = copy.deepcopy(temp_state)
         return moved_state
 
     
@@ -165,9 +165,9 @@ class Grid:
     Perform a bfs search to find the goal
     '''
     def bfs(self):
-
+        
         # a temp variable to hold the current state
-        curr_state = copy.copy(self.grid)
+        curr_state = copy.deepcopy(self.grid)
 
         # a queue for bfs that holds states
         bfs_queue = []
@@ -181,7 +181,7 @@ class Grid:
                 
                 curr_state = bfs_queue.pop(0)
                 print(bfs_queue)
-                self.grid = copy.copy(curr_state)
+                self.grid = copy.deepcopy(curr_state)
 
                 for direction in [Grid.UP, Grid.DOWN, Grid.LEFT, Grid.RIGHT]:
             
@@ -199,7 +199,6 @@ class Grid:
         
         if self.goal_test(self.grid):
             print("Yay goal reached!")
-
 
 
 
