@@ -132,7 +132,7 @@ def simulate():
     
     os.system('clear')
     while(True):
-        #print_grid(current_location)
+        print_grid(current_location)
         direction = int(input("Enter direction to move: "))
         os.system('clear')
         # print(current_location)
@@ -177,9 +177,11 @@ def  a_star():
                                        current_element[2]+1))  
         
 
+
 # print(calcDistanceToGoal())
 
 if __name__ == "__main__":
+    # simulate()
     generate_world()
     print_grid(start_location)
     print(H_MEM)
