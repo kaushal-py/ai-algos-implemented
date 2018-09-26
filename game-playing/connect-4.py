@@ -33,6 +33,7 @@ def print_world(state):
         print("-"*5*COLUMNS)
 
 
+
 def find_empty_location(state, col):
 
     for i in range(ROWS-1, -1, -1):
@@ -41,6 +42,7 @@ def find_empty_location(state, col):
             return i
     
     return -1
+
 
 
 def move(state, col, player):
@@ -59,34 +61,51 @@ def move(state, col, player):
     return next_state, connect_val
 
 
+
 def max_connect_val(state, pos, player):
 
     # Vertical Down
     (row, col) = pos
     count_down = 0
-    while(row < ROWS and state[row][col] == player):
+    while(row< ROWS and state[row][col] == player):
         row += 1
         count_down += 1
     
-    # Diagonal Left
+    # Horizontal Left
     (row, col) = pos
     count_left = 0
-    while(row < ROWS and col >= 0 and state[row][col] == player):
-        row += 1
+    while(col >= 0 and state[row][col] == player):
         col -= 1
         count_left += 1
     
-    # Diagonal Right
+    # Horizontal Right
     (row, col) = pos
     count_right = 0
-    while(row < ROWS and col < COLUMNS and state[row][col] == player):
-        row += 1
+    while(col < COLUMNS and state[row][col] == player):
         col += 1
         count_right += 1
     
-    return max(count_down, count_left, count_right)
 
+    # Diagonal Left
+    (row, col) = pos
+    count_diag_left = 0
+    while(row < ROWS and col >= 0 and state[row][col] == player):
+        row += 1
+        col -= 1
+        count_diag_left += 1
     
+    # Diagonal Right
+    (row, col) = pos
+    count_diag_right = 0
+    while(row < ROWS and col < COLUMNS and state[row][col] == player):
+        row += 1
+        col += 1
+        count_diag_right += 1
+    
+    return max(count_down, count_diag_left, count_diag_right, count_left+count_right-1)
+
+
+
 def simulate():
 
     os.system('clear')
