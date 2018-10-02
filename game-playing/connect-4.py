@@ -3,9 +3,11 @@ import os
 
 ROWS = 6
 COLUMNS = 7
+INFINITY = 10
 
 PLAYERS = ("R", "B")
 
+LOOKUP_DEPTH = 4
 
 start_state = [ ['E' for _ in range(COLUMNS)] for _ in range(ROWS)]
 
@@ -130,6 +132,65 @@ def simulate():
         
         turn = 1-turn
         
+
+def utility(state, player):
+
+    utility = 0
+
+    for i in range(ROWS):
+        for j in range(COLUMNS):
+            utility = max(utility, max_connect_val(state, (i,j), player))
+
+    return utility 
+
+
+
+def maxValue(state, alpha, beta, depth, player):
+
+    if depth == 0:
+        return utility(state, player)
+    
+
+    v = -INFINITY
+
+    for col in range(COLUMNS):
+        neighbour, _ = move(state, col, player)
+        v = max(v, min_value(neighbour, alpha, beta, depth-1, player))
+
+        if v >= beta:
+            return v
+        
+        alpha = max(alpha, v)
+    
+    return v
+
+
+
+def min_value(state, alpha, beta, depth, player):
+
+    if depth == 0:
+        return utility(state, player)
+    
+
+    v = INFINITY
+
+    for col in range(COLUMNS):
+        neighbour, _ = move(state, col, player)
+        v = min(v, max_value(neighbour, alpha, beta, depth-1, player))
+
+        if v <= alpha:
+            return v
+        
+        alpha = max(alpha, v)
+    
+    return v
+
+
+
+def alpha-beta-search(state, depth, player):
+
+    v = max_value(state, INFINITY, -INFINITY, depth, player)
+
 
 
 def main():
